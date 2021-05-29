@@ -38,7 +38,7 @@ allow {
 	input.type == permission.type
     
     # unless user location is outside DE
-    country := data.users[input.user]["location"]["country"]
+    country := input.country || data.users[input.user]["location"]["country"]
     country == "DE"
 }
 
