@@ -37,9 +37,16 @@ allow {
 	input.action == permission.action
 	input.type == permission.type
     
-    # unless user location is outside DE
-    country := input.country || data.users[input.user]["location"]["country"]
-    country == "DE"
+    de_country_rule == true
+}
+
+# user location must be DE
+default de_country_rule = false
+de_country_rule = true {
+	input.country == "DE"
+}
+de_country_rule = true {
+	data.users[input.user]["location"]["country"] == "DE"
 }
 
 # user_is_admin is true if...
